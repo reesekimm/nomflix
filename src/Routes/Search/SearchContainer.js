@@ -11,11 +11,21 @@ export default class extends React.Component {
     loading: false // 사용자가 검색하기 전에는 결과를 로딩하지 않음
   };
 
-  handleSubmit = () => {
+  handleSubmit = event => {
+    event.preventDefault();
     const { searchTerm } = this.state;
     if (searchTerm) {
       this.searchByTerm();
     }
+  };
+
+  updateTerm = event => {
+    const {
+      target: { value }
+    } = event;
+    this.setState({
+      searchTerm: value
+    });
   };
 
   searchByTerm = async () => {
@@ -43,7 +53,8 @@ export default class extends React.Component {
       searchTerm,
       error,
       loading,
-      handleSubmit
+      handleSubmit,
+      updateTerm
     } = this.state;
     return (
       <SearchPresenter
@@ -53,6 +64,7 @@ export default class extends React.Component {
         error={error}
         loading={loading}
         handleSubmit={this.handleSubmit}
+        updateTerm={this.updateTerm}
       />
     );
   }
