@@ -22,7 +22,6 @@ export default class extends React.Component {
       const {
         data: { results: popular }
       } = await movieApi.popular();
-      // throw Error();
       this.setState({
         nowPlaying: nowPlaying,
         upcoming: upcoming,
@@ -30,7 +29,7 @@ export default class extends React.Component {
       });
     } catch {
       this.setState({
-        error: "Can't find movie information."
+        error: "Oops! Something went wrong."
       });
     } finally {
       this.setState({

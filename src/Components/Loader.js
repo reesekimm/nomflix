@@ -6,14 +6,15 @@ const Container = styled.div`
   width: 100vw;
   display: flex;
   justify-content: center;
-  padding-top: 50px;
-  font-size: 30px;
+  align-items: center;
+  padding-bottom: 150px;
+  font-size: 20px;
 `;
 
 export default () => (
   <Container>
     <span role="img" aria-label="Loading">
-      {"\u23F0"}
+      Loading...
     </span>
   </Container>
 );
