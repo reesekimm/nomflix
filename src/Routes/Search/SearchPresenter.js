@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Loader from "Components/Loader";
 import Section from "Components/Section";
+import Poster from "Components/Poster";
+import Message from "Components/Message";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -23,6 +25,7 @@ const SearchPresenter = ({
   movieResults,
   tvResults,
   searchTerm,
+  notFound,
   error,
   loading,
   handleSubmit,
@@ -31,6 +34,7 @@ const SearchPresenter = ({
   <Container>
     <Form onSubmit={handleSubmit}>
       <Input
+        autoFocus
         placeholder="Search Movies or TV Shows..."
         value={searchTerm}
         onChange={updateTerm}
@@ -43,17 +47,40 @@ const SearchPresenter = ({
         {movieResults && movieResults.length > 0 && (
           <Section title="Movie Results">
             {movieResults.map(movie => (
-              <span key={movie.id}>{movie.title}</span>
+              <Poster
+                key={movie.id}
+                isMovie={true}
+                id={movie.id}
+                imgUrl={movie.poster_path}
+                title={movie.original_title}
+                rating={movie.vote_average}
+                year={movie.release_date}
+              />
             ))}
           </Section>
         )}
         {tvResults && tvResults.length > 0 && (
           <Section title="TV Results">
             {tvResults.map(show => (
-              <span key={show.id}>{show.name}</span>
+              <Poster
+                key={show.id}
+                isMovie={false}
+                id={show.id}
+                imgUrl={show.poster_path}
+                title={show.original_name}
+                rating={show.vote_average}
+                year={show.first_air_date}
+              />
             ))}
           </Section>
         )}
+        {error && <Message color="#b71540" text={error} />}
+        {movieResults &&
+          tvResults &&
+          !movieResults.length &&
+          !tvResults.length && (
+            <Message color="#dcdde1" text={`No results match '${notFound}'`} />
+          )}
       </>
     )}
   </Container>

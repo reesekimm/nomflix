@@ -1,6 +1,6 @@
-import React from 'react';
-import TVPresenter from './TVPresenter';
-import { tvApi } from 'api';
+import React from "react";
+import TVPresenter from "./TVPresenter";
+import { tvApi } from "api";
 
 export default class extends React.Component {
   state = {
@@ -28,7 +28,7 @@ export default class extends React.Component {
         airingToday
       });
     } catch {
-      this.setState({ error: "Can't find TV information." });
+      this.setState({ error: "Oops! Something went wrong." });
     } finally {
       this.setState({ loading: false });
     }
