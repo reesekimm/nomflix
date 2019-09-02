@@ -7,6 +7,7 @@ export default class extends React.Component {
     movieResults: null,
     tvResults: null,
     searchTerm: "",
+    notFound: "",
     error: null,
     loading: false // 사용자가 검색하기 전에는 결과를 로딩하지 않음
   };
@@ -29,7 +30,7 @@ export default class extends React.Component {
   };
 
   searchByTerm = async () => {
-    const { searchTerm } = this.state;
+    const { searchTerm, notFound } = this.state;
     this.setState({ loading: true });
     try {
       const {
@@ -39,8 +40,11 @@ export default class extends React.Component {
         data: { results: tvResults }
       } = await tvApi.search(searchTerm);
       this.setState({ movieResults, tvResults });
+      if (!movieResults.length && !tvResults.length) {
+        this.setState({ notFound: searchTerm });
+      }
     } catch {
-      this.setState({ error: "Can't find any results." });
+      this.setState({ error: "Oops! Something went wrong." });
     } finally {
       this.setState({ loading: false });
     }
@@ -51,6 +55,7 @@ export default class extends React.Component {
       movieResults,
       tvResults,
       searchTerm,
+      notFound,
       error,
       loading,
       handleSubmit,
@@ -61,6 +66,7 @@ export default class extends React.Component {
         movieResults={movieResults}
         tvResults={tvResults}
         searchTerm={searchTerm}
+        notFound={notFound}
         error={error}
         loading={loading}
         handleSubmit={this.handleSubmit}
