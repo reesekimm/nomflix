@@ -37,7 +37,7 @@ export default class extends React.Component {
         ? ({ data: result } = await movieApi.movieDetail(parsedId))
         : ({ data: result } = await tvApi.tvDetail(parsedId));
     } catch {
-      this.setState({ error: "Can't find anything." });
+      this.setState({ error: "Oops! Something went wrong." });
     } finally {
       this.setState({ loading: false, result });
     }
