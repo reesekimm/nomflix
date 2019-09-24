@@ -54,9 +54,22 @@ const Title = styled.h3`
 
 const ItemContainer = styled.div`
   margin: 20px 0;
+  height: 20px;
+  display: flex;
+  align-items: center;
 `;
 
 const Item = styled.span``;
+
+const Imdb = styled.div`
+  width: 40px;
+  height: 20px;
+  background-image: url(${props => props.logoImg});
+  background-position: center center;
+  background-size: cover;
+  border-radius: 2px;
+  display: inline-block;
+`;
 
 const Divider = styled.span`
   margin: 0 10px;
@@ -69,7 +82,7 @@ const Overview = styled.p`
   width: 50%;
 `;
 
-const DetailPresenter = ({ result, error, loading }) =>
+const DetailPresenter = ({ result, error, loading, isMovie }) =>
   loading ? (
     <Loader />
   ) : (
@@ -85,7 +98,7 @@ const DetailPresenter = ({ result, error, loading }) =>
           <Cover
             bgImage={
               `https://image.tmdb.org/t/p/original${result.poster_path}` ||
-              require("../../asset/noPosterSmall.png")
+              require("../../assets/noPosterSmall.png")
             }
           />
           <Info>
@@ -109,6 +122,18 @@ const DetailPresenter = ({ result, error, loading }) =>
                       : genre.name
                   )}
               </Item>
+              {isMovie && (
+                <>
+                  <Divider>●</Divider>
+                  <a
+                    href={`https://www.imdb.com/title/${result.imdb_id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Imdb logoImg={require("../../assets/imdb.jpg")} />
+                  </a>
+                </>
+              )}
             </ItemContainer>
             <Overview>{result.overview}</Overview>
           </Info>
