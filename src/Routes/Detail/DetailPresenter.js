@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
+import TabBlock from "Components/TabBlock";
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -79,7 +80,7 @@ const Overview = styled.p`
   font-size: 15px;
   opacity: 0.7;
   line-height: 1.5;
-  width: 50%;
+  width: 100%;
 `;
 
 const DetailPresenter = ({ result, error, loading, isMovie }) =>
@@ -136,6 +137,11 @@ const DetailPresenter = ({ result, error, loading, isMovie }) =>
               )}
             </ItemContainer>
             <Overview>{result.overview}</Overview>
+            <TabBlock
+              videos={result.videos.results}
+              series={result.belongs_to_collection || result.seasons}
+              production={result.production_companies}
+            />
           </Info>
         </Contents>
         {error && <Message color="#b71540" text={error} />}
