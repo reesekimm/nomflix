@@ -12,12 +12,21 @@ const Content = styled.div`
   border-radius: 0 10px 0 0;
   padding: 20px;
   border: none;
+  height: fit-content;
+`;
+
+const Videos = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 `;
 
 class TabBlock extends React.Component {
   constructor(props) {
     super(props);
-    const {videos, series, production} = this.props;
+    const { videos, series, production } = this.props;
     this.state = {
       active: "tab01",
       videos: videos,
@@ -37,7 +46,18 @@ class TabBlock extends React.Component {
           <Menu key="tab03">Production Info</Menu>
         </Tabs>
         <Content>
-        {active === "tab01" && videos && videos.length > 0 && {videos.map(video => (<TabVideos thumbnail={video.key} title={video.name}/>))}}</Content>
+          {active === "tab01" && videos && videos.length > 0 && (
+            <Videos>
+              {videos.map(video => (
+                <TabVideos
+                  key={video.key}
+                  thumbnail={video.key}
+                  title={video.name}
+                />
+              ))}
+            </Videos>
+          )}
+        </Content>
       </TabWrapper>
     );
   }
