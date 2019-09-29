@@ -32,22 +32,33 @@ export default class extends React.Component {
     }
 
     let result = null;
+    let collection = null;
     try {
-      isMovie
-        ? ({ data: result } = await movieApi.movieDetail(parsedId))
-        : ({ data: result } = await tvApi.tvDetail(parsedId));
+      if (isMovie) {
+        ({ data: result } = await movieApi.movieDetail(parsedId));
+        if (result.belongs_to_collection) {
+          ({ data: collection } = await movieApi.collection(
+            result.belongs_to_collection.id
+          ));
+          collection = collection.parts;
+        }
+      } else {
+        ({ data: result } = await tvApi.tvDetail(parsedId));
+        collection = result.seasons;
+      }
     } catch {
       this.setState({ error: "Oops! Something went wrong." });
     } finally {
-      this.setState({ loading: false, result });
+      this.setState({ loading: false, result, collection });
     }
   }
 
   render() {
-    const { result, error, loading, isMovie } = this.state;
+    const { result, collection, error, loading, isMovie } = this.state;
     return (
       <DetailPresenter
         result={result}
+        collection={collection}
         error={error}
         loading={loading}
         isMovie={isMovie}

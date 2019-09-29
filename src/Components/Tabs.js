@@ -28,7 +28,7 @@ class Tabs extends React.Component {
     return (
       <TabNav>
         {React.Children.map(this.props.children, (child, i) => {
-          return (
+          return child ? (
             <Tab
               active={child.key === this.props.active}
               onClick={() => {
@@ -37,7 +37,7 @@ class Tabs extends React.Component {
             >
               {child}
             </Tab>
-          );
+          ) : null;
         })}
       </TabNav>
     );

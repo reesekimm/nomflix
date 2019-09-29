@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Tabs from "./Tabs";
 import TabVideos from "./TabVideos";
+import TabSeries from "./TabSeries";
+import TabProd from "./TabProd";
 
 const TabWrapper = styled.div``;
 
@@ -15,13 +17,23 @@ const Content = styled.div`
   height: fit-content;
 `;
 
-const Videos = styled.div`
+const VideoBlock = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
 `;
+
+const SeriesBlock = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+`;
+
+const ProdBlock = styled.div``;
 
 class TabBlock extends React.Component {
   constructor(props) {
@@ -41,21 +53,41 @@ class TabBlock extends React.Component {
     return (
       <TabWrapper>
         <Tabs active={active} onChange={active => this.setState({ active })}>
-          <Menu key="tab01">Videos</Menu>
-          <Menu key="tab02">Series</Menu>
-          <Menu key="tab03">Production Info</Menu>
+          {videos && videos.length > 0 && <Menu key="tab01">Videos</Menu>}
+          {series && series.length > 0 && <Menu key="tab02">Series</Menu>}
+          {production && production.length > 0 && (
+            <Menu key="tab03">Production Info</Menu>
+          )}
         </Tabs>
         <Content>
-          {active === "tab01" && videos && videos.length > 0 && (
-            <Videos>
-              {videos.map(video => (
+          {active === "tab01" && (
+            <VideoBlock>
+              {videos.map(item => (
                 <TabVideos
-                  key={video.key}
-                  thumbnail={video.key}
-                  title={video.name}
+                  key={item.key}
+                  thumbnail={item.key}
+                  title={item.name}
                 />
               ))}
-            </Videos>
+            </VideoBlock>
+          )}
+          {active === "tab02" && (
+            <SeriesBlock>
+              {series.map(item => (
+                <TabSeries
+                  key={item.key}
+                  posUrl={item.poster_path}
+                  title={item.original_title || item.name}
+                />
+              ))}
+            </SeriesBlock>
+          )}
+          {active === "tab03" && (
+            <ProdBlock>
+              {production.map(item => (
+                <TabProd key={item.id} title={item.name} />
+              ))}
+            </ProdBlock>
           )}
         </Content>
       </TabWrapper>

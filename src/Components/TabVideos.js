@@ -3,20 +3,21 @@ import styled from "styled-components";
 
 const Container = styled.div`
   padding: 10px;
+  width: 218px;
 `;
 
 const Thumbnail = styled.div`
-  width: 218px;
+  width: 100%;
   height: 122px;
   background-image: url(${prop => prop.imgUrl});
   background-size: cover;
   background-position: center center;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 `;
 
 const Title = styled.span`
   display: block;
-  width: 200px;
+  width: 100%;
 `;
 
 const Video = ({ thumbnail, title }) => (

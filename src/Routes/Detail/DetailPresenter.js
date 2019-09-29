@@ -83,7 +83,7 @@ const Overview = styled.p`
   width: 100%;
 `;
 
-const DetailPresenter = ({ result, error, loading, isMovie }) =>
+const DetailPresenter = ({ result, collection, error, loading, isMovie }) =>
   loading ? (
     <Loader />
   ) : (
@@ -139,7 +139,7 @@ const DetailPresenter = ({ result, error, loading, isMovie }) =>
             <Overview>{result.overview}</Overview>
             <TabBlock
               videos={result.videos.results}
-              series={result.belongs_to_collection || result.seasons}
+              series={collection}
               production={result.production_companies}
             />
           </Info>
