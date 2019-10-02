@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -20,17 +21,19 @@ const Title = styled.span`
   width: 100%;
 `;
 
-const TabSeries = ({ posUrl, title }) => (
-  <Container>
-    <Thumbnail
-      posUrl={
-        posUrl
-          ? `https://image.tmdb.org/t/p/w300${posUrl}`
-          : require("../assets/noPosterSmall.png")
-      }
-    />
-    <Title>{title}</Title>
-  </Container>
+const TabSeries = ({ isMovie, id, posUrl, title }) => (
+  <Link to={isMovie ? `/movie/${id}` : "#"}>
+    <Container>
+      <Thumbnail
+        posUrl={
+          posUrl
+            ? `https://image.tmdb.org/t/p/w300${posUrl}`
+            : require("../assets/noPosterSmall.png")
+        }
+      />
+      <Title>{title}</Title>
+    </Container>
+  </Link>
 );
 
 export default TabSeries;

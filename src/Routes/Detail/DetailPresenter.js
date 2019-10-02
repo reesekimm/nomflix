@@ -141,6 +141,7 @@ const DetailPresenter = ({ result, collection, error, loading, isMovie }) =>
               videos={result.videos.results}
               series={collection}
               production={result.production_companies}
+              isMovie={isMovie}
             />
           </Info>
         </Contents>

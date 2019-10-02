@@ -38,17 +38,18 @@ const ProdBlock = styled.div``;
 class TabBlock extends React.Component {
   constructor(props) {
     super(props);
-    const { videos, series, production } = this.props;
+    const { videos, series, production, isMovie } = this.props;
     this.state = {
       active: "tab01",
       videos: videos,
       series: series,
-      production: production
+      production: production,
+      isMovie: isMovie
     };
   }
 
   render() {
-    const { active, videos, series, production } = this.state;
+    const { active, videos, series, production, isMovie } = this.state;
 
     return (
       <TabWrapper>
@@ -75,7 +76,9 @@ class TabBlock extends React.Component {
             <SeriesBlock>
               {series.map(item => (
                 <TabSeries
-                  key={item.key}
+                  key={item.id}
+                  isMovie={isMovie}
+                  id={item.id}
                   posUrl={item.poster_path}
                   title={item.original_title || item.name}
                 />

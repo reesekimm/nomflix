@@ -10,6 +10,7 @@ export default class extends React.Component {
     } = props;
     this.state = {
       result: null,
+      collection: null,
       error: null,
       loading: true,
       isMovie: pathname.includes("/movie/")
@@ -26,7 +27,7 @@ export default class extends React.Component {
 
     const { isMovie } = this.state;
 
-    const parsedId = parseInt(id);
+    const parsedId = parseInt(id, 10);
     if (isNaN(parsedId)) {
       return push("/");
     }
@@ -51,6 +52,13 @@ export default class extends React.Component {
     } finally {
       this.setState({ loading: false, result, collection });
     }
+  }
+
+  async componentWillReceiveProps(nextProps) {
+    let newResult = null;
+    let newId = parseInt(nextProps.location.pathname.slice(7), 10);
+    ({ data: newResult } = await movieApi.movieDetail(newId));
+    this.setState({ result: newResult });
   }
 
   render() {
