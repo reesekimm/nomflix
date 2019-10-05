@@ -48,6 +48,16 @@ class TabBlock extends React.Component {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return prevState.production !== nextProps.production
+      ? {
+          videos: nextProps.videos,
+          series: nextProps.series,
+          production: nextProps.production
+        }
+      : null;
+  }
+
   render() {
     const { active, videos, series, production, isMovie } = this.state;
 

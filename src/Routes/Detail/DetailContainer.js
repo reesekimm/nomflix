@@ -54,11 +54,15 @@ export default class extends React.Component {
     }
   }
 
-  async componentWillReceiveProps(nextProps) {
-    let newResult = null;
-    let newId = parseInt(nextProps.location.pathname.slice(7), 10);
-    ({ data: newResult } = await movieApi.movieDetail(newId));
-    this.setState({ result: newResult });
+  async componentDidUpdate(prevProps, prevState) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      let newResult = null;
+      let newId = parseInt(this.props.location.pathname.slice(7), 10);
+      ({ data: newResult } = await movieApi.movieDetail(newId));
+      this.setState({ result: newResult });
+    } else {
+      return null;
+    }
   }
 
   render() {
