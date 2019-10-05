@@ -105,16 +105,27 @@ const DetailPresenter = ({ result, collection, error, loading, isMovie }) =>
           <Info>
             <Title>{result.original_title || result.original_name}</Title>
             <ItemContainer>
-              <Item>
-                {(result.release_date || result.first_air_date).substring(0, 4)}
-              </Item>
-              <Divider>●</Divider>
-              <Item>
-                {(result.runtime && result.runtime) ||
-                  (result.episode_run_time && result.episode_run_time[0])}{" "}
-                min
-              </Item>
-              <Divider>●</Divider>
+              {((result.release_date && result.release_date !== "") ||
+                (result.first_air_date && result.first_air_date !== "")) && (
+                <>
+                  <Item>
+                    {(result.release_date || result.first_air_date).substring(
+                      0,
+                      4
+                    )}
+                  </Item>
+                  <Divider>●</Divider>
+                </>
+              )}
+              {((result.runtime && result.runtime !== null) ||
+                result.episode_run_time) && (
+                <>
+                  <Item>
+                    {result.runtime || result.episode_run_time[0]} min
+                  </Item>
+                  <Divider>●</Divider>
+                </>
+              )}
               <Item>
                 {result.genres &&
                   result.genres.map((genre, idx) =>
@@ -123,7 +134,7 @@ const DetailPresenter = ({ result, collection, error, loading, isMovie }) =>
                       : genre.name
                   )}
               </Item>
-              {isMovie && (
+              {isMovie && result.imdb_id !== null && (
                 <>
                   <Divider>●</Divider>
                   <a
