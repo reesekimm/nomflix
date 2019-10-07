@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  padding: 10px;
+  margin: 10px;
   width: 218px;
+  cursor: pointer;
 `;
 
 const Thumbnail = styled.div`
@@ -20,8 +21,8 @@ const Title = styled.span`
   width: 100%;
 `;
 
-const Video = ({ thumbnail, title }) => (
-  <Container>
+const Video = ({ thumbnail, title, handleShow }) => (
+  <Container id={thumbnail} title={title} onClick={handleShow}>
     <Thumbnail
       imgUrl={`https://img.youtube.com/vi/${thumbnail}/hqdefault.jpg`}
     />
