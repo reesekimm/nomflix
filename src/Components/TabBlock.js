@@ -12,10 +12,10 @@ const Menu = styled.div``;
 
 const Content = styled.div`
   background-color: rgba(225, 225, 225, 0.5);
-  border-radius: 0 10px 0 0;
+  border-radius: 0 10px 10px 10px;
   padding: 20px;
   border: none;
-  height: fit-content;
+  margin-bottom: 50px;
 `;
 
 const VideoBlock = styled.div`
