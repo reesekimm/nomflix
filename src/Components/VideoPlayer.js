@@ -14,7 +14,7 @@ const Modal = styled.div`
 const Container = styled.div`
   position: fixed;
   background-color: black;
-  width: 80%;
+  width: 62%;
   height: 85%;
   top: 50%;
   left: 50%;
@@ -22,31 +22,50 @@ const Container = styled.div`
 `;
 
 const TitleSection = styled.div`
+  height: 50px;
   .title {
+    display: flex;
+    height: 32px;
+    align-items: center;
     font-size: 20px;
+    margin-left: 15px;
+    margin-top: 15px;
   }
   .close {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    background-color: #222f3e;
-    font-size: 20px;
-    text-align: center;
-    vertical-align: center;
+    right: 15px;
+    top: 15px;
+    width: 32px;
+    height: 32px;
     cursor: pointer;
+    opacity: 0.5;
+  }
+  .close:hover {
+    opacity: 1;
+  }
+  .close:before,
+  .close:after {
+    position: absolute;
+    left: 15px;
+    content: " ";
+    height: 33px;
+    width: 2px;
+    background-color: white;
+  }
+  .close:before {
+    transform: rotate(45deg);
+  }
+  .close:after {
+    transform: rotate(-45deg);
   }
 `;
 
 const VideoSection = styled.div`
-position: absolute;
-bottom: 0;
+  position: absolute;
+  bottom: 0;
   width: 100%;
   .video {
     width: 100%;
-    }
   }
 `;
 
@@ -61,9 +80,7 @@ class VideoPlayer extends React.Component {
         <Container>
           <TitleSection>
             <span className="title">{playingTitle}</span>
-            <div className="close" onClick={handleClose}>
-              X
-            </div>
+            <div className="close" onClick={handleClose}></div>
           </TitleSection>
           <VideoSection>
             <div className="video">
