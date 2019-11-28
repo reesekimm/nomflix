@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+const StyledLink = styled(Link)`
+  cursor: ${props => (props.ismovie ? "cursor" : "default")};
+`;
+
 const Container = styled.div`
   padding: 10px;
   width: 118px;
@@ -22,7 +26,7 @@ const Title = styled.span`
 `;
 
 const TabSeries = ({ isMovie, id, posUrl, title }) => (
-  <Link to={isMovie ? `/movie/${id}` : "#"}>
+  <StyledLink to={isMovie ? `/movie/${id}` : "#"} ismovie={isMovie ? 1 : 0}>
     <Container>
       <Thumbnail
         posUrl={
@@ -33,7 +37,7 @@ const TabSeries = ({ isMovie, id, posUrl, title }) => (
       />
       <Title>{title}</Title>
     </Container>
-  </Link>
+  </StyledLink>
 );
 
 export default TabSeries;
